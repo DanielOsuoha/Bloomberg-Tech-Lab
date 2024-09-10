@@ -15,7 +15,9 @@
 */
 
 import { useState } from "react";
-
+import Share from "@/components/Share";
+import SearchBar from "@/components/SearchBar";
+import {FirstComponent, SecondComponent, ThirdComponent} from "@/components/SomeComponents";
 export default function Home() {
   const [hardCodedPortfolioValue, setHardCodedPortfolioValue] = useState(10_000);
   const [hardCodedUserAmount, setHardCodedUserAmount] = useState(10_000);
@@ -28,6 +30,11 @@ export default function Home() {
         <h2 className="text-4xl text-gray-900 mb-5">${hardCodedPortfolioValue.toLocaleString("en-US")}</h2>
         <div className="text-base">
           <span className="text-1xl text-gray-900 font-bold">Available to Spend: </span>${hardCodedUserAmount.toLocaleString("en-US")}
+        </div>
+
+        <div>
+
+        <SearchBar></SearchBar>
         </div>
         <h3 className="text-3xl text-gray-900 mt-12 mb-3 font-bold">Your Portfolio</h3>
         <div className="overflow-x-auto">
@@ -42,6 +49,7 @@ export default function Home() {
               <div className="border-y border-black px-6 py-3">Your Change</div>
             </div>
             <div className="contents">
+              {<Share></Share>}
             </div>
           </div>
         </div>
