@@ -32,7 +32,7 @@ export default function Home() {
         </div>
         <h3 className="text-3xl text-gray-900 mt-12 mb-3 font-bold">Your Portfolio</h3>
         <div className="overflow-x-auto">
-          <div className={`border-collapse border-y-2  border-y-black text-sm text-left rtl:text-right text-black grid grid-cols-7 grid-rows-1`}>
+          <div  className={`border-collapse border-y-2  border-y-black text-sm text-left rtl:text-right text-black grid grid-cols-7 grid-rows-1`}>
             <div className="text-cs text-black bg-black contents">
               <div className="border-y border-black px-6 py-3">Name</div>
               <div className="border-y border-black px-6 py-3">Share Price</div>

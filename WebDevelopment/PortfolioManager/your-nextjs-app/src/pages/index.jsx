@@ -17,7 +17,7 @@
 import { useState } from "react";
 import Share from "@/components/Share";
 import SearchBar from "@/components/SearchBar";
-import {FirstComponent, SecondComponent, ThirdComponent} from "@/components/SomeComponents";
+// import {FirstComponent, SecondComponent, ThirdComponent} from "@/components/SomeComponents";
 import { useEffect } from "react";
 export default function Home() {
   const [hardCodedPortfolioValue, setHardCodedPortfolioValue] = useState(10_000);
@@ -38,7 +38,7 @@ export default function Home() {
         .then(data => {
           const sharePrice = data;
           setSelectedShare({
-            symbol: shareSymbol, name: shareNmae, sharePrice
+            symbol: shareSymbol, name: shareName, sharePrice
           });
         });
   }
@@ -63,6 +63,7 @@ export default function Home() {
     }).catch(error => {
       console.log(error);
     });
+    
   });
 
   return (
