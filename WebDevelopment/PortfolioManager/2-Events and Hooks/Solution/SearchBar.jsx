@@ -65,7 +65,7 @@ export default function SearchBar({ updateSelectedShare, resetSelectedShare }) {
     <div ref={stockInputRef} className="relative">
       {/* Work here */}
       <input className="border border-slate-300 rounded-md w-full hover: placeholder:text-slate-300 p-3 mb-3" type="text" placeholder="Search stocks to buy" onInput={(event) => { onShareFieldInput(event); resetSelectedShare() }} value={stockFieldValue} onChange={event => updateShareFieldValue(event.target.value)} onFocus={() => setEnableShareDropdown(true)}></input>
-      <SearchBarCloseButton updateShareFieldValue={updateShareFieldValue} resetSelectedShare={resetSelectedShare}></SearchBarCloseButton>
+      <SearchBarCloseButton updateShareFieldValue={updateShareFieldValue} resetSelectedShare={resetSelectedShare} setEnableShareDropdown={setEnableShareDropdown}></SearchBarCloseButton>
       <div id="stock-dropdown" className={`w-full max-h-60 border border-gray-300 rounded-md bg-white absolute overflow-y-auto ${!enableShareDropdown ? "hidden" : ''}`}>
         {stockSuggestions.map(share => <ShareSuggestion symbol={share["shareSymbol"]} name={share["shareName"]} updateShareField={updateShareFieldValue} disableShareDropdown={setEnableShareDropdown} updateSelectedShare={updateSelectedShare}></ShareSuggestion>)}
       </div>

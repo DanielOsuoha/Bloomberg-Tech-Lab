@@ -16,6 +16,7 @@
 
 import { useState } from "react";
 import CloseButton from "@/components/CloseButton";
+import FirstComponent from "@/components/first";
 
 export default function BuySellWindow({ selectedShare, actionType, handleActionSelectedShare, handleCloseWindow, idx }) {
   const [amountSharesFieldValue, setAmountSharesFieldValue] = useState('');
@@ -66,6 +67,9 @@ export default function BuySellWindow({ selectedShare, actionType, handleActionS
     <div className="p-5 col-span-9">
       <div className="relative">
         <CloseButton onClickHandler={handleCloseWindow} />
+      </div>
+      <div>
+        <FirstComponent></FirstComponent>
       </div>
       <p className="font-bold">{actionType === "buy" ? "Buy" : "Sell"} {`${selectedShare["symbol"]}:${selectedShare["name"]}`}</p>
       <div className="flex items-center">

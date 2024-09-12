@@ -15,10 +15,12 @@
 */
 
 import { useState } from "react";
+import { useEffect } from "react";
 import Share from "@/components/Share";
 import SearchBar from "@/components/SearchBar";
+import SelectedShareWindow from "@/components/SelectedShareWindow";
+import BuyWindow from "@/components/BuyWindow";
 // import {FirstComponent, SecondComponent, ThirdComponent} from "@/components/SomeComponents";
-import { useEffect } from "react";
 export default function Home() {
   const [hardCodedPortfolioValue, setHardCodedPortfolioValue] = useState(10_000);
   const [hardCodedUserAmount, setHardCodedUserAmount] = useState(10_000);
@@ -29,18 +31,17 @@ export default function Home() {
   const [revealBuyWindow, setRevealBuyWindow] = useState(false);
 
   async function updateSelectedShare(shareSymbol, shareNmae){
-      if (!shareSymbol){
-        return;
-      }
+    if (!shareSymbol){
+      return;
+    }
 
-      fetch(`http://localhost/wp-json/techlabs/v1/get_share_price/${shareSymbol}`)
-        .then(res => res.json())
-        .then(data => {
-          const sharePrice = data;
-          setSelectedShare({
-            symbol: shareSymbol, name: shareName, sharePrice
-          });
-        });
+    // Make call to backend to retrieve share information
+    fetch(`http://localhost/wp-json/techlabs/v1/get_share_price/${shareSymbol}`)
+      .then(res => res.json())
+      .then(data => {
+        const sharePrice = data;
+        setSelectedShare({ symbol: shareSymbol, name: shareName, sharePrice });
+      });
   }
 
   function resetSelected(){
@@ -55,15 +56,18 @@ export default function Home() {
     setHardCodedPortfolioValue(newPortfolioValue);
   }
 
+  // Load all shares owned by current user
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/get_shares`).then((res) => res.json()).then((data) => {
-      const _shares = data;
-      setShares(_shares);
-      setLoading(false);
-    }).catch(error => {
-      console.log(error);
-    });
-    
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/get_shares`)
+      .then((res) => res.json())
+      .then((data) => {
+        const _shares = data;
+        setShares(_shares);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   });
 
   return (
@@ -81,7 +85,7 @@ export default function Home() {
         </div>
         <h3 className="text-3xl text-gray-900 mt-12 mb-3 font-bold">Your Portfolio</h3>
         <div className="overflow-x-auto">
-          <div className={`border-collapse border-y-2  border-y-black text-sm text-left rtl:text-right text-black grid grid-cols-7 grid-rows-1`}>
+          <div className={`border-collapse border-y-2  border-y-black text-sm text-left rtl:text-right text-black grid grid-cols-9 grid-rows-1`}>
             <div className="text-cs text-black bg-black contents">
               <div className="border-y border-black px-6 py-3">Name</div>
               <div className="border-y border-black px-6 py-3">Share Price</div>
@@ -89,9 +93,11 @@ export default function Home() {
               <div className="border-y border-black px-6 py-3">Your Shares</div>
               <div className="border-y border-black px-6 py-3">Avg Price</div>
               <div className="border-y border-black px-6 py-3">Mkt Value</div>
-              <div className="border-y border-black px-6 py-3">Your Change</div>
+              <div className="border-y border-black px-6 py-3 col-span-3">Your Change</div>
             </div>
             <div className="contents">
+            { (!selectedShare) ? '' : <SelectedShareWindow selectedShare={selectedShare} handleOpenSelectedShareWindow={handleOpenSelectedShareWindow} /> }
+            { (!revealBuyWindow || !selectedShare) ? '' : <BuyWindow selectedShare={selectedShare} hardCodedUserAmount={hardCodedUserAmount} setHardCodedUserAmount={setHardCodedUserAmount} portfolioValue={hardCodedPortfolioValue} updatePortfolioValue={updatePortfolioValue} handleCloseWindow={() => setRevealBuyWindow(false)} /> }
               {<Share/>}
             </div>
           </div>

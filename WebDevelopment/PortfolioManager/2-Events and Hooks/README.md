@@ -52,7 +52,7 @@ async function updateSelectedShare(shareSymbol, shareName) {
     fetch(`http://localhost/wp-json/techlabs/v1/get_share_price/${shareSymbol}`)
         .then(res => res.json())
         .then(data => {
-            const sharePrice = data;
+            const sharePrice = data;  
             setSelectedShare({ symbol: shareSymbol, name: shareName, sharePrice });
         });
 }
