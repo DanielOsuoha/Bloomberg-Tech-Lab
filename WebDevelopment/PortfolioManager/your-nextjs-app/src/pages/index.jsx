@@ -20,7 +20,6 @@ import Share from "@/components/Share";
 import SearchBar from "@/components/SearchBar";
 import SelectedShareWindow from "@/components/SelectedShareWindow";
 import BuyWindow from "@/components/BuyWindow";
-// import {FirstComponent, SecondComponent, ThirdComponent} from "@/components/SomeComponents";
 export default function Home() {
   const [hardCodedPortfolioValue, setHardCodedPortfolioValue] = useState(10_000);
   const [hardCodedUserAmount, setHardCodedUserAmount] = useState(10_000);
@@ -30,7 +29,7 @@ export default function Home() {
   const [selectedShare, setSelectedShare] = useState(null);
   const [revealBuyWindow, setRevealBuyWindow] = useState(false);
 
-  async function updateSelectedShare(shareSymbol, shareNmae){
+  async function updateSelectedShare(shareSymbol, shareName){
     if (!shareSymbol){
       return;
     }
